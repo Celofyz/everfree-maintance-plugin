@@ -15,7 +15,7 @@ import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.StructureGrowEvent;
 
-import pl.everfree.auth.Database;
+import pl.everfree.util.Database;
 import pl.everfree.util.Web;
 
 public class Events implements Listener{

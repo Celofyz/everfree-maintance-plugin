@@ -27,7 +27,7 @@ public class PlayerStatistics {
 	}
 	
 	public void remove(){
-		playerList.remove(this);
+		playerList.removePlayer(playerName);
 	}
 	
 	public String getName(){

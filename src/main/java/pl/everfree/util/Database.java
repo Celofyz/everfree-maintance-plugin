@@ -1,4 +1,4 @@
-package pl.everfree.auth;
+package pl.everfree.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import pl.everfree.mc.Everfree;
-import pl.everfree.util.Config;
 
 public class Database {
 	

@@ -1,20 +1,25 @@
 package pl.everfree.mc;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class PlayerList {
-	LinkedList<PlayerStatistics> list = new LinkedList<PlayerStatistics>();
+	Map<String, PlayerStatistics> map = new HashMap<String, PlayerStatistics>();
 	
 	public void addPlayer(String playerName, int brokenBlocks, int enchantedItems, int deaths, int blocksFromFurnance, int level){
-		list.add(new PlayerStatistics(this, playerName, brokenBlocks, enchantedItems, deaths, blocksFromFurnance, level));
+		map.put(playerName, new PlayerStatistics(this, playerName, brokenBlocks, enchantedItems, deaths, blocksFromFurnance, level));
 	}
 	
-	public void remove(PlayerStatistics player){
-		list.remove(player);
+	public PlayerStatistics getPlayer(String playerName){
+		return map.get(playerName);
+	}
+	
+	public void removePlayer(String playerName){
+		map.remove(playerName);
 	}
 
-	public LinkedList<PlayerStatistics> getList() {
-		return list;
+	public Map<String, PlayerStatistics> getMap() {
+		return map;
 	}
-	
 }
