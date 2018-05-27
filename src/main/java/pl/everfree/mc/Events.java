@@ -11,6 +11,7 @@ import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.StructureGrowEvent;
@@ -20,8 +21,11 @@ import pl.everfree.util.Web;
 
 public class Events implements Listener{
 	
-	public Events(Everfree plugin) {
+	private PlayerMap playerMap;
+	
+	public Events(Everfree plugin, PlayerMap playerMap) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		this.playerMap = playerMap;
 	}
 
 	/*Called when a player attemps to connect to server. It is used for authorization*/
@@ -29,6 +33,12 @@ public class Events implements Listener{
 	public void onPreLogin(AsyncPlayerPreLoginEvent player){
 		if(!Database.isAllowed(player.getName()))
 			player.disallow(AsyncPlayerPreLoginEvent.Result.KICK_WHITELIST, "You are not on the whitelist or the server is in development mode");
+	}
+	
+	/*Called when a player connects to server*/
+	@EventHandler
+	public void onLogin(PlayerLoginEvent player){
+		playerMap.addPlayer(player.getPlayer().getName(), 0, 0, 0, 0, 0);
 	}
 	
 	/**Player statistics related events*/

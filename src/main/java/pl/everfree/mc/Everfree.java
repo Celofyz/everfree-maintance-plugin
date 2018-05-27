@@ -5,9 +5,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Everfree extends JavaPlugin {
 	
+	private PlayerMap playerMap;
+	
 	@Override
 	public void onEnable(){
-		new Events(this);
+		playerMap = new PlayerMap();
+		new Events(this, playerMap);
 	}
-
 }

@@ -4,7 +4,7 @@ package pl.everfree.mc;
  * Those will be sent to database by other class*/
 public class PlayerStatistics {
 	
-	PlayerList playerList;
+	PlayerMap playerList;
 	
 	String playerName;
 	
@@ -14,7 +14,7 @@ public class PlayerStatistics {
 	private int furnance;
 	private int level;
 	
-	public PlayerStatistics(PlayerList playerList, String playerName, int brokenBlocks, int enchantedItems, int deaths, int blocksFromFurnance, int level){
+	public PlayerStatistics(PlayerMap playerList, String playerName, int brokenBlocks, int enchantedItems, int deaths, int blocksFromFurnance, int level){
 		this.playerList = playerList;
 		
 		this.playerName = playerName;

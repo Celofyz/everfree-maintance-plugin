@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class PlayerList {
+public class PlayerMap {
 	Map<String, PlayerStatistics> map = new HashMap<String, PlayerStatistics>();
 	
 	public void addPlayer(String playerName, int brokenBlocks, int enchantedItems, int deaths, int blocksFromFurnance, int level){
