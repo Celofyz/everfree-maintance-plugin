@@ -67,10 +67,11 @@ public class Database {
 		/*Its a prototype. Tables names will be different or will be taken from config*/
 		
 		for(Map.Entry<String, PlayerStatistics> entry : playerMap.getMap().entrySet()){
-			query = query + "UPDATE Players SET"
+			query = query + "UPDATE players SET"
 					+ " brokenBlocks = " + entry.getValue().getBrokenBlocks()
 					+ ", enchantedItems = " + entry.getValue().getEnchantedItems()
 					+ ", deaths = " + entry.getValue().getDeaths()
+					+ ", furnance = " + entry.getValue().getFurnance()
 					+ ", level = " + entry.getValue().getLevel()
 					+ ", levelRecord = " + entry.getValue().getLevel()
 					+ " WHERE username = ?; ";
@@ -108,6 +109,47 @@ public class Database {
 				e.printStackTrace();
 			}
 		}		
+	}
+	
+	static public int[] get_stats(String playerName){
+		
+		int[] stats = {0,0,0,0,0,0};
+		
+		try {
+			/*Connect to database*/
+			conn = DriverManager.getConnection(connect);
+			
+			/*Query*/
+			String q = "SELECT brokenBlocks, enchantedItems, deaths, furnance, level, levelRecord FROM players WHERE username = ?";
+			pstmt = conn.prepareStatement(q);
+			pstmt.setString(1, playerName);
+			rs = pstmt.executeQuery();
+			
+			/*read settings from database*/
+			if(rs.next()){
+				stats[0] = rs.getInt("brokenBlocks");
+				stats[1] = rs.getInt("enchantedItems");
+				stats[2] = rs.getInt("deaths");
+				stats[3] = rs.getInt("furnance");
+				stats[4] = rs.getInt("level");
+				stats[5] = rs.getInt("levelRecord");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				/*Disconnect from database*/
+				pstmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return stats;
 	}
 	
 	/*Obsolete*/

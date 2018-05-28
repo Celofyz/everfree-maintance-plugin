@@ -1,5 +1,7 @@
 package pl.everfree.mc;
 
+import pl.everfree.mc.util.Database;
+
 /*This class will held statistics of a player for given time
  * Those will be sent to database by other class*/
 public class PlayerStatistics {
@@ -21,12 +23,15 @@ public class PlayerStatistics {
 		this.playerName = playerName;
 		
 		//TODO: Take those values from database
-		brokenBlocks = 0;
-		enchantedItems = 0;
-		deaths = 0;
-		furnance = 0;
-		level = 0;
-		level_record = 0;
+		
+		int[] stats = Database.get_stats(playerName);
+		
+		brokenBlocks = stats[0];
+		enchantedItems = stats[1];
+		deaths = stats[2];
+		furnance = stats[3];
+		level = stats[4];
+		level_record = stats[5];
 	}
 	
 	public void remove(){
