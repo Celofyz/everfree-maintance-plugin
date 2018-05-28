@@ -13,17 +13,20 @@ public class PlayerStatistics {
 	private int deaths;
 	private int furnance;
 	private int level;
+	private int level_record;
 	
-	public PlayerStatistics(PlayerMap playerList, String playerName, int brokenBlocks, int enchantedItems, int deaths, int blocksFromFurnance, int level){
+	public PlayerStatistics(PlayerMap playerList, String playerName){
 		this.playerList = playerList;
 		
 		this.playerName = playerName;
 		
-		this.brokenBlocks = brokenBlocks;
-		this.enchantedItems = enchantedItems;
-		this.deaths = deaths;
-		this.furnance = blocksFromFurnance;
-		this.level = level;
+		//TODO: Take those values from database
+		brokenBlocks = 0;
+		enchantedItems = 0;
+		deaths = 0;
+		furnance = 0;
+		level = 0;
+		level_record = 0;
 	}
 	
 	public void remove(){
@@ -52,6 +55,10 @@ public class PlayerStatistics {
 
 	public int getLevel() {
 		return level;
+	}
+	
+	public int getLevelRecord(){
+		return level_record;
 	}
 
 	public void addBrokenBlocks(int brokenBlocks) {

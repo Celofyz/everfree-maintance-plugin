@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.world.StructureGrowEvent;
@@ -38,7 +39,14 @@ public class Events implements Listener{
 	/*Called when a player connects to server*/
 	@EventHandler
 	public void onLogin(PlayerLoginEvent player){
-		playerMap.addPlayer(player.getPlayer().getName(), 0, 0, 0, 0, 0);
+		//TODO: read stats from json file
+		playerMap.addPlayer(player.getPlayer().getName());
+	}
+	
+	/*Called when a player disconnects from server*/
+	@EventHandler
+	public void onQuit(PlayerQuitEvent player){
+		playerMap.removePlayer(player.getPlayer().getName());
 	}
 	
 	/**Player statistics related events*/
@@ -46,32 +54,32 @@ public class Events implements Listener{
 	/*Called when a player breaks a block*/
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event){
-		Web.onBlockBreak(event.getPlayer().getName(), 1);;
+		playerMap.getPlayer(event.getPlayer().getName()).addBrokenBlocks(1);
 	}
 	
 	/*Called when a player enchants an item*/
 	@EventHandler
 	public void onEnchantItem(EnchantItemEvent event){
-		Web.onEnchantItem(event.getEnchanter().getName(), 1);
+		playerMap.getPlayer(event.getEnchanter().getName()).addEnchantedItems(1);
 	}
 	
 	/*Called when a player dies
 	 *NOTE: In future this event may have other purposes than statistics*/
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
-		Web.onPlayerDeath(event.getEntity().getName(), 1);
+		playerMap.getPlayer(event.getEntity().getName()).addDeaths(1);
 	}
 	
 	/*Called when a player takes item out of furnance*/
 	@EventHandler
 	public void onFurnanceExtract(FurnaceExtractEvent event){
-		Web.onFurnanceExtract(event.getPlayer().getName(), 1);
+		playerMap.getPlayer(event.getPlayer().getName()).addDeaths(event.getItemAmount());
 	}
 	
 	/*Called when player's level changes*/
 	@EventHandler
 	public void onPlayerLevelChange(PlayerLevelChangeEvent event){
-		Web.onPlayerLevelChange(event.getPlayer().getName(), 1);
+		playerMap.getPlayer(event.getPlayer().getName()).setLevel(event.getNewLevel());;
 	}
 	
 	/**Server statistic related events*/

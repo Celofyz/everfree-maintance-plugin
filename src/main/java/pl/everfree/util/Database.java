@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 import pl.everfree.mc.Everfree;
+import pl.everfree.mc.PlayerMap;
+import pl.everfree.mc.PlayerStatistics;
 
 public class Database {
 	
@@ -56,6 +59,57 @@ public class Database {
 		}
 	}
 	
+	/*Prepares a query that will be send to update the statistics database*/
+	public void query_builder(PlayerMap playerMap) throws SQLException{
+		
+		String query = "";
+		
+		/*Its a prototype. Table names will have diffrent names or will be taken from config*/
+		
+		for(Map.Entry<String, PlayerStatistics> entry : playerMap.getMap().entrySet()){
+			query = query + "UPDATE Players SET"
+					+ " brokenBlocks = " + entry.getValue().getBrokenBlocks()
+					+ ", enchantedItems = " + entry.getValue().getEnchantedItems()
+					+ ", deaths = " + entry.getValue().getDeaths()
+					+ ", level = " + entry.getValue().getLevel()
+					+ ", levelRecord = " + entry.getValue().getLevel()
+					+ " WHERE username = ?; ";
+		}
+		
+		pstmt = conn.prepareStatement(query);
+		
+		for(Map.Entry<String, PlayerStatistics> entry : playerMap.getMap().entrySet()){
+			int i = 1;
+			pstmt.setString(i, entry.getValue().getName());
+			i++;
+		}
+	}
+	
+	public void query_send(PlayerMap playerMap){
+		
+		try{
+			/*Connect to database*/
+			conn = DriverManager.getConnection(connect);
+			
+			/*Send query*/
+			query_builder(playerMap);
+			rs = pstmt.executeQuery();
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+		} finally{
+			try{
+				/*Disconnect from server*/
+				conn.close();
+				pstmt.close();
+				rs.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	/*Obsolete*/
 	public static boolean isAllowed(String user){
 		boolean result = false;
 		

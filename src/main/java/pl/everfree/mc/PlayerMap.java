@@ -7,8 +7,8 @@ import java.util.Map;
 public class PlayerMap {
 	Map<String, PlayerStatistics> map = new HashMap<String, PlayerStatistics>();
 	
-	public void addPlayer(String playerName, int brokenBlocks, int enchantedItems, int deaths, int blocksFromFurnance, int level){
-		map.put(playerName, new PlayerStatistics(this, playerName, brokenBlocks, enchantedItems, deaths, blocksFromFurnance, level));
+	public void addPlayer(String playerName){
+		map.put(playerName, new PlayerStatistics(this, playerName));
 	}
 	
 	public PlayerStatistics getPlayer(String playerName){
@@ -16,6 +16,7 @@ public class PlayerMap {
 	}
 	
 	public void removePlayer(String playerName){
+		//TODO:send playerdata to server before removing
 		map.remove(playerName);
 	}
 
