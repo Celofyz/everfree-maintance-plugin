@@ -1,4 +1,4 @@
-package pl.everfree.util;
+package pl.everfree.mc.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,15 +13,15 @@ import pl.everfree.mc.PlayerStatistics;
 
 public class Database {
 	
-	static String connect;
+	private static String connect;
 	
-	static PreparedStatement pstmt = null;
-	static ResultSet rs = null;
-	static Connection conn;
+	private static PreparedStatement pstmt = null;
+	private static ResultSet rs = null;
+	private static Connection conn;
 	
-	Config config;
+	private Config config;
 	
-	static int whitelistMode = 1;
+	private static int whitelistMode = 1;
 
 	public Database(Config config){
 		 this.config = config;
@@ -60,7 +60,7 @@ public class Database {
 	}
 	
 	/*Prepares a query that will be send to update the statistics database*/
-	public void query_builder(PlayerMap playerMap) throws SQLException{
+	private void query_builder(PlayerMap playerMap) throws SQLException{
 		
 		String query = "";
 		
@@ -85,7 +85,8 @@ public class Database {
 		}
 	}
 	
-	public void query_send(PlayerMap playerMap){
+	/*Sends player stats to database*/
+	public void send_stats(PlayerMap playerMap){
 		
 		try{
 			/*Connect to database*/

@@ -1,4 +1,4 @@
-package pl.everfree.util;
+package pl.everfree.mc.util;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
