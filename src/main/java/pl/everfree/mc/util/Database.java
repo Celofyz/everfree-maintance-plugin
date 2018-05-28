@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -136,7 +137,22 @@ public class Database {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
+			try{
+				/*Connect to database*/
+				conn = DriverManager.getConnection(connect);
+				
+				/*Query*/
+				String q = "INSERT INTO players (brokenBlocks, enchantedItems, deaths, furnance, level, levelRecord)"
+						+ " VALUES (0,0,0,0,0,0)";
+				pstmt = conn.prepareStatement(q);
+				pstmt.setString(1, playerName);
+				rs = pstmt.executeQuery();
+				
+			} catch(SQLException ex) {
+				ex.printStackTrace();
+			}
+			
 		} finally {
 			try {
 				/*Disconnect from database*/
@@ -147,8 +163,6 @@ public class Database {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		return stats;
 	}
 	

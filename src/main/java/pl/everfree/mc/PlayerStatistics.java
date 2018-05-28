@@ -18,8 +18,8 @@ public class PlayerStatistics {
 	private int level_record;
 	
 	public PlayerStatistics(PlayerMap playerList, String playerName){
-		this.playerList = playerList;
 		
+		this.playerList = playerList;
 		this.playerName = playerName;
 		
 		//TODO: Take those values from database
