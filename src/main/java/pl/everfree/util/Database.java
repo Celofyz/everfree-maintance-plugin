@@ -64,7 +64,7 @@ public class Database {
 		
 		String query = "";
 		
-		/*Its a prototype. Table names will have diffrent names or will be taken from config*/
+		/*Its a prototype. Tables names will be different or will be taken from config*/
 		
 		for(Map.Entry<String, PlayerStatistics> entry : playerMap.getMap().entrySet()){
 			query = query + "UPDATE Players SET"
