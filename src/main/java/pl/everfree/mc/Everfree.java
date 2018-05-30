@@ -23,6 +23,11 @@ public final class Everfree extends JavaPlugin {
 		setScheduler();
 	}
 	
+	@Override
+	public void onDisable() {
+		db.send_stats(playerMap);
+	}
+	
 	@SuppressWarnings("deprecation")
 	private void setScheduler(){
 		BukkitScheduler scheduler = getServer().getScheduler();
