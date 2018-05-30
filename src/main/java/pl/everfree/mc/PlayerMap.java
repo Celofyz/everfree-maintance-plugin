@@ -1,7 +1,6 @@
 package pl.everfree.mc;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import pl.everfree.mc.util.Database;

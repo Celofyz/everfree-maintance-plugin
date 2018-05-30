@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.util.Map;
 
-import pl.everfree.mc.Everfree;
 import pl.everfree.mc.PlayerMap;
 import pl.everfree.mc.PlayerStatistics;
 
@@ -20,12 +18,9 @@ public class Database {
 	private static ResultSet rs = null;
 	private static Connection conn;
 	
-	private Config config;
-	
 	private static int whitelistMode = 1;
 
 	public Database(Config config){
-		 this.config = config;
 		 connect = "jdbc:mysql://" + config.getDatabaseIP()
 		 	+ "/" + config.getDatabaseName()
 		 	+ "?user=" + config.getDatabaseUsername()
