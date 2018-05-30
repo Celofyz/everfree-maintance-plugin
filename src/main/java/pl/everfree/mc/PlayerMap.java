@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import pl.everfree.mc.util.Database;
+
 public class PlayerMap {
 	Map<String, PlayerStatistics> map = new HashMap<String, PlayerStatistics>();
 	
@@ -16,7 +18,7 @@ public class PlayerMap {
 	}
 	
 	public void removePlayer(String playerName){
-		//TODO:send playerdata to server before removing
+		Database.send_stats(map.get(playerName));
 		map.remove(playerName);
 	}
 

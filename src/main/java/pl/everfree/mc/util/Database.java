@@ -61,7 +61,7 @@ public class Database {
 	}
 	
 	/*Prepares a query that will be send to update the statistics database*/
-	private void query_builder(PlayerMap playerMap) throws SQLException{
+	private static void query_builder(PlayerMap playerMap) throws SQLException{
 		
 		String query = "";
 		
@@ -87,8 +87,27 @@ public class Database {
 		}
 	}
 	
+	private static void query_builder(PlayerStatistics playerStats) throws SQLException{
+		
+		String query = "";
+		
+		/*Its a prototype. Tables names will be different or will be taken from config*/
+		
+		query = query + "UPDATE players SET"
+				+ " brokenBlocks = " + playerStats.getBrokenBlocks()
+				+ ", enchantedItems = " + playerStats.getEnchantedItems()
+				+ ", deaths = " + playerStats.getDeaths()
+				+ ", furnance = " + playerStats.getFurnance()
+				+ ", level = " + playerStats.getLevel()
+				+ ", levelRecord = " + playerStats.getLevel()
+				+ " WHERE username = ?; ";
+		
+		pstmt = conn.prepareStatement(query);
+		pstmt.setString(1, playerStats.getName());
+	}
+	
 	/*Sends player stats to database*/
-	public void send_stats(PlayerMap playerMap){
+	public static void send_stats(PlayerMap playerMap){
 		
 		try{
 			/*Connect to database*/
@@ -96,6 +115,31 @@ public class Database {
 			
 			/*Send query*/
 			query_builder(playerMap);
+			rs = pstmt.executeQuery();
+			
+		} catch(SQLException e){
+			e.printStackTrace();
+		} finally{
+			try{
+				/*Disconnect from server*/
+				conn.close();
+				pstmt.close();
+				rs.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	/*Sends player stats to database*/
+	public static void send_stats(PlayerStatistics playerStats){
+		
+		try{
+			/*Connect to database*/
+			conn = DriverManager.getConnection(connect);
+			
+			/*Send query*/
+			query_builder(playerStats);
 			rs = pstmt.executeQuery();
 			
 		} catch(SQLException e){
