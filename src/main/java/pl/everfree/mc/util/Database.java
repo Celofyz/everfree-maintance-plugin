@@ -19,15 +19,18 @@ public class Database {
 	private static Connection conn;
 	
 	private static int whitelistMode = 1;
+	
+	private Config config;
 
 	public Database(Config config){
-		 connect = "jdbc:mysql://" + config.getDatabaseIP()
-		 	+ "/" + config.getDatabaseName()
-		 	+ "?user=" + config.getDatabaseUsername()
-		 	+ "&password=" + config.getDatabasePassword();
-		 
-		 /*Import settings from database*/
-		 try {
+		this.config = config;
+		connect = "jdbc:mysql://" + config.getDatabaseIP()
+			+ "/" + config.getDatabaseName()
+			+ "?user=" + config.getDatabaseUsername()
+			+ "&password=" + config.getDatabasePassword();
+		
+		/*Import settings from database*/
+		try {
 			/*Connect to database*/
 			conn = DriverManager.getConnection(connect);
 			
@@ -82,6 +85,7 @@ public class Database {
 		}
 	}
 	
+	/*Prepares a query for a single player*/
 	private static void query_builder(PlayerStatistics playerStats) throws SQLException{
 		
 		String query = "";
@@ -101,7 +105,7 @@ public class Database {
 		pstmt.setString(1, playerStats.getName());
 	}
 	
-	/*Sends player stats to database*/
+	/*Sends players stats to database*/
 	public static void send_stats(PlayerMap playerMap){
 		
 		try{
